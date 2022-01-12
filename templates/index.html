@@ -1,0 +1,258 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>events site</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'css/styles.css'%}" rel="stylesheet" />
+        <style>
+            
+            .button {
+              background-color: #4CAF50;
+              border: none;
+              color: white;
+              padding: 15px 32px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              margin: 4px 2px;
+              cursor: pointer;
+            }
+            </style>
+    </head>
+  
+    <body>
+        
+
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                </div>
+            </div>
+        </nav>
+        <!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Welcome to payment link generator !</h1>
+                </div>
+            </div>
+        </header>
+        <!-- Section-->
+         <section class="py-5">
+            <form  >
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                <div class="row mb-4">
+                  <div class="col">
+                    <div class="form-outline">
+                      <input type="text" id="invoice_id" placeholder="Enter the invoice id"  class="form-control" />
+                      <label class="form-label" for="form6Example1">Invoice number</label>
+                    </div>
+                  </div>
+ 
+                <div class="form-outline mb-4">
+                    <input type="text" id="amount" placeholder="Enter the amount" class="form-control" />
+                    <label class="form-label" for="form6Example3">Amount</label>
+                  </div>
+              
+                <!-- Text input -->
+                <div class="form-outline mb-4">
+                  <input type="text" id="client_name" placeholder="Enter the client name" class="form-control" />
+                  <label class="form-label" for="form6Example3">Client name</label>
+                </div>
+              
+                <!-- Text input -->
+                <div class="form-outline mb-4">
+                  <input type="text" id="client_email" placeholder="Enter the client email" class="form-control" />
+                  <label class="form-label" for="form6Example4">Client email</label>
+                </div>
+              
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                  <input type="email" id="project_name" placeholder="Enter the project name" class="form-control" />
+                  <label class="form-label" for="form6Example5">Project name</label>
+                </div>
+              
+                <!-- Number input -->
+              
+              
+                <!-- Message input -->
+          
+              
+                <!-- Checkbox -->
+               
+              
+                <!-- Submit button -->
+                <button type="submit" id="search_button" class=" btn btn-primary btn-block mb-4">Generate link</button>
+              </form>
+        </section > 
+
+     
+
+
+        
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright @ 2022&copy; All Rights Reserved</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'js/scripts.js'%}"></script>    
+        <script type="text/javascript">
+            $(function() {
+                $('#datepicker').datepicker();
+            });
+        </script>
+
+        <script type="text/javascript">
+            $(function() {
+                $('#datepickers').datepicker();
+            });
+        </script>
+
+        <script type="text/javascript">  //flag
+            document.getElementById("search_button").onclick = function () {
+                
+                var invoice_id = $("#invoice_id").val()
+                var client_name = $("#client_name").val()
+                var client_email = $("#client_email").val()
+                var project_name = $("#project_name").val()
+                var amount = $("#amount").val()
+                alert(amount)
+
+                var token = '{{csrf_token}}'
+                //var data = '?search=0'.replace('0',search)
+                if(invoice_id==""){
+                    alert("invoice_id field empty please enter invoice_id") 
+                    return;
+                }
+                if(client_name==""){
+                    alert("client_name field empty please enter client_name") 
+                    return
+                }
+                if(client_email==""){
+                    alert("client_email field empty please enter client_email") 
+                    return
+                }
+                if(project_name==""){
+                    alert("project_name field empty please enter project_name") 
+                    return
+                }
+                function isEmail(email) {
+                    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    return regex.test(email);
+                  }
+                 var ukn  =  isEmail(client_email)
+                 if(ukn == false ){
+                    alert("Please enter a valid mail id")
+                    return;
+     
+                }  
+                if(amount=""){
+                    alert("amount field empty please enter amount") 
+                    return
+                }
+                var amount = $("#amount").val()
+              
+                
+                
+                fetch("{% url 'invoice' %}", {
+                    method: 'post',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',"X-CSRFToken":token
+                    },
+                    body: JSON.stringify({
+                        "amount":amount,
+                        "invoice_id":invoice_id,
+                        "client_name":client_name,
+                        "client_email":client_email,
+                        "project_name":project_name
+                        
+                   
+               
+                                    })
+                    }).then(function(res){ return res.json(); })
+                    .then(function(data){          
+                        if(data.data=="True"){
+                            alert(data.message) 
+                        
+                           
+                          
+                        }
+                        else{
+                            alert(data.message)        
+                        }
+                    });
+            };
+        </script>
+
+
+
+        <script type="text/javascript">  //flag
+            document.getElementById("filter_button").onclick = function () {
+                
+                var start_date = $("#start_date").val()
+                var end_date = $("#end_date").val()
+                var category = $("#category").val()
+                if(start_date =="" | end_date==""  | category=="" )
+                {
+                    alert("please provide all the fields for filtering")
+                    return
+
+                }
+                var start_date  = start_date.replaceAll("/", "-");
+                var end_date  = end_date.replaceAll("/", "-");
+            
+                var data = "filter" +'/' + start_date +'/' + end_date +'/' + category
+                location.href = data
+            };
+        </script>
+
+
+        <script type="text/javascript">  
+            document.getElementById("next_id").onclick = function () {
+           
+                if("{{next}}" !== 'None'){
+                    location.href = "{{next}}"
+
+                }
+                               
+            };
+        </script>
+
+        <script type="text/javascript">  
+            document.getElementById("previous_id").onclick = function () {
+           
+                if("{{previous}}" !== 'None'){
+                    location.href = "{{previous}}"
+
+                }
+                               
+            };
+        </script>
+
+
+
+
+
+    </body>
+</html>
