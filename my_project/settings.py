@@ -28,9 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-BITLY_GROUP_GUID = "o_5cu67potcr"
+BITLY_GROUP_GUID = ""
 
-BITLY_TOKEN ="99a80d80245b7cdf9c668e3d69f8a438b7366d43"
+BITLY_TOKEN =""
 # Application definition
 
 INSTALLED_APPS = [
