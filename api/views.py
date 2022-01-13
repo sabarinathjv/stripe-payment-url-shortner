@@ -17,7 +17,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 class SuccessView(TemplateView):
-    template_name = "success.html"
+    template_name = "sucess.html"
 
 
 class CancelView(TemplateView):
